@@ -102,7 +102,6 @@ public class Main {
             moneda.mostrarConversion(dineroParaCOnvertir, moneda, monedaTarget);
             moneda.consultaTiempoRequest();
             listaHistorialMonedas.add(monedaTarget);
-
         } catch (NumberFormatException e) {
             System.out.println("CANTIDAD NO VALIDA, PRUEBE CON VALORES REALES");
             return true;

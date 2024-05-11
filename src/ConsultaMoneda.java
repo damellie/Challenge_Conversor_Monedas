@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ConsultaMoneda  implements  Conversion{
     private String base;
     private String target;
@@ -31,7 +30,6 @@ public class ConsultaMoneda  implements  Conversion{
         this.base = base;
         this.target = target;
     }
-
 
     public List<Moneda> getListaMonedas() {
         return listaMonedas;
@@ -90,7 +88,6 @@ public class ConsultaMoneda  implements  Conversion{
 
     @Override
     public float getConversion(Moneda moneda) {
-
         return moneda.conversion_result();
     }
 }
