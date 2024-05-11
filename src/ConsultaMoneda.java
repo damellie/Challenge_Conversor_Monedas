@@ -4,15 +4,37 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.sql.SQLOutput;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ConsultaMoneda  implements  Conversion{
     private String base;
     private String target;
+    private List<Moneda> listaMonedas = new ArrayList<>();
 
     public ConsultaMoneda(String base, String target) {
         this.base = base;
         this.target = target;
+    }
+
+    @Override
+    public String toString() {
+        return "ConsultaMoneda{" +
+                "listaMonedas=" + listaMonedas +
+                '}';
+    }
+
+    public ConsultaMoneda() {
+        this.base = base;
+        this.target = target;
+    }
+
+
+    public List<Moneda> getListaMonedas() {
+        return listaMonedas;
     }
 
     public String getBase() {
@@ -45,7 +67,8 @@ public class ConsultaMoneda  implements  Conversion{
             //Las siguientes lineas las metemos dentro del try
             String json = response.body();
             Moneda miMoneda =  new Gson().fromJson(json, Moneda.class);
-            return miMoneda ;
+            this.listaMonedas.add(miMoneda);
+            return miMoneda;
             // si lo dejamos fuera puede que el try arroje el error e intentariamos retornar algo incorrecto
         } catch (Exception e) {
             throw new RuntimeException("No pude convertir la cifra especificada");
@@ -57,6 +80,13 @@ public class ConsultaMoneda  implements  Conversion{
         System.out.println(cantidad + "[" + this.base + "]" + " --> " + conversion.getConversion(miMoneda) +
                 "["+this.target+"]");
     }
+
+    public void consultaTiempoRequest (){ //Metodo para saber la hora de la consulta
+        LocalDateTime ldt = LocalDateTime.now();
+        System.out.println("La Consulta fue realizada el --->  " +
+                String.valueOf(ldt).substring(0,10) + " a las ---> "+ String.valueOf(ldt).substring(11,19));
+    }
+
 
     @Override
     public float getConversion(Moneda moneda) {
